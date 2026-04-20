@@ -226,6 +226,12 @@ if (BUILD_MONOLITHIC)
 		)
 	endif()
 
+	if (APPLE)
+		target_link_libraries (amule
+			PRIVATE "-framework CoreServices"
+		)
+	endif()
+
 	install (TARGETS amule
 		RUNTIME DESTINATION bin
 	)
