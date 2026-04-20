@@ -28,6 +28,13 @@ target_link_libraries (wxcas
 	wxWidgets::NET
 )
 
+if (APPLE)
+	target_link_libraries (wxcas
+		"-framework CoreFoundation"
+		"-framework CoreServices"
+	)
+endif()
+
 install (TARGETS wxcas
 	RUNTIME DESTINATION bin
 )
