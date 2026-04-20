@@ -2,9 +2,60 @@ name: C/C++ CI
 
 on:
   push:
-    branches: ["*"]
+    branches: [ "*" ]
   pull_request:
-    branches: ["*"]
+    branches: [ "*" ]
+
+env:
+  cmake_ubuntu_deps: |
+    cmake \
+    build-essential \
+    libboost-all-dev \
+    libcrypto++-dev \
+    wx3.2-headers \
+    libupnp-dev \
+    libgeoip-dev \
+    libwxgtk3.2-dev \
+    libreadline-dev \
+    gettext \
+    libgd-dev \
+    pkg-config
+
+  autotools_amule_config_flags: |
+    --enable-wxcas \
+    --enable-cas \
+    --enable-webserver \
+    --enable-amule-gui \
+    --enable-amule-daemon \
+    --enable-alcc \
+    --enable-alc \
+    --enable-amulecmd \
+    --enable-geoip \
+    --with-boost
+
+  # BUILD_PLASMAMULE requires Qt4
+  cmake_amule_config_flags: |
+    -DBUILD_ALC=YES \
+    -DBUILD_ALCC=YES \
+    -DBUILD_AMULECMD=YES \
+    -DBUILD_CAS=YES \
+    -DBUILD_DAEMON=YES \
+    -DBUILD_WXCAS=YES \
+    -DBUILD_ED2K=YES \
+    -DBUILD_MONOLITHIC=YES \
+    -DBUILD_PLASMAMULE=0 \
+    -DBUILD_REMOTEGUI=YES \
+    -DBUILD_TESTING=YES \
+    -DBUILD_WEBSERVER=YES \
+    -DENABLE_IP2COUNTRY=YES \
+    -DENABLE_NLS=YES \
+    -DENABLE_UPNP=YES
+
+  cmake_extra_flags: ""
+
+  ctest_flags: |
+    --output-on-failure \
+    --timeout 5
 
 jobs:
   build_autotools:
@@ -14,74 +65,80 @@ jobs:
     steps:
       - uses: actions/checkout@v6
       - name: install deps
-        run: sudo apt-get update && sudo apt-get upgrade && sudo apt-get install autopoint
+        run: |
+          sudo apt-get update && \
+          sudo apt-get upgrade && \
+          sudo apt-get install autopoint
       - name: autogen
         run: ./autogen.sh
       - name: install build deps
-        run: sudo apt-get install devscripts equivs && sudo mk-build-deps -i
-      - name: configure
         run: |
-          ./configure \
-          --enable-wxcas \
-          --enable-cas \
-          --enable-webserver \
-          --enable-amule-gui \
-          --enable-amule-daemon \
-          --enable-alcc \
-          --enable-alc \
-          --enable-amulecmd \
-          --enable-geoip \
-          --with-boost
+          sudo apt-get install devscripts equivs && \
+          sudo mk-build-deps -i
+      - name: configure
+        run: ./configure ${{ env.autotools_amule_config_flags }}
       - name: make
         run: make
-      - name: make check
+      - name: run tests
         run: make check
 
-  build_cmake:
+  build_cmake_ubuntu:
+    name: Build CMake on Ubuntu
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
       - name: install deps
         run: |
           sudo apt-get update
-          sudo apt-get install -y \
-            cmake \
-            build-essential \
-            libboost-all-dev \
-            libcrypto++-dev \
-            wx3.2-headers \
-            libupnp-dev \
-            libgeoip-dev \
-            libwxgtk3.2-dev \
-            libreadline-dev \
-            gettext \
-            libgd-dev \
-            pkg-config
+          sudo apt-get install -y ${{ env.cmake_ubuntu_deps }}
       # It seems to run faster without this, but we have to manually list the
       # dependencies abobe.
       #  run: |
       #    sudo apt-get install devscripts equivs && sudo mk-build-deps -i
-      - name: create build system
+      - name: Create the cmake build system
         run: |
-          # BUILD_PLASMAMULE requires Qt4
-          cmake -B build \
-            -DBUILD_ALC=YES \
-            -DBUILD_ALCC=YES \
-            -DBUILD_AMULECMD=YES \
-            -DBUILD_CAS=YES \
-            -DBUILD_DAEMON=YES \
-            -DBUILD_WXCAS=YES \
-            -DBUILD_ED2K=YES \
-            -DBUILD_MONOLITHIC=YES \
-            -DBUILD_PLASMAMULE=0 \
-            -DBUILD_REMOTEGUI=YES \
-            -DBUILD_TESTING=YES \
-            -DBUILD_WEBSERVER=YES \
-            -DENABLE_IP2COUNTRY=YES \
-            -DENABLE_NLS=YES \
-            -DENABLE_UPNP=YES
-      - name: make
+          cmake \
+          -B build \
+          ${{ env.cmake_amule_config_flags }} \
+          ${{ env.cmake_extra_flags }}
+      - name: Build
         run: cmake --build build
-      - name: run tests
+      - name: Run tests
         run: |
-          ctest --test-dir build --output-on-failure --timeout 5
+          ctest  ${{ env.ctest_flags }} -C ${{ matrix.conf }}
+
+  build_cmake_macos:
+    name: Build CMake on MacOS (${{ matrix.conf }})
+    runs-on: macos-latest
+    strategy:
+      matrix:
+        conf:
+          - Debug
+      fail-fast: false
+    steps:
+      - uses: actions/checkout@v6
+      - name: Configure
+        run: |
+          cmake \
+          -S . \
+          -B build \
+          -DCMAKE_BUILD_TYPE=${{ matrix.conf }} \
+          -DBUILD_TESTING=ON \
+          -DDOWNLOAD_AND_BUILD_DEPS=ON \
+          -DCMAKE_INSTALL_PREFIX=${{ GITHUB.WORKSPACE }}/test-install \
+          ${{ env.cmake_amule_config_flags }} \
+          ${{ env.cmake_extra_flags }}
+      - name: Build
+        run: |
+          cmake \
+          --build build \
+          --config ${{ matrix.conf }}
+      - name: Test
+        run: |
+          cd build
+          ctest ${{ env.ctest_flags }} -C ${{ matrix.conf }}
+          cd ..
+      - name: Debug output
+        run: cmake -DBUILD_DIR=build -P cmake/post-test.cmake
+      - name: install
+        run: cmake --install build --config ${{ matrix.conf }}
