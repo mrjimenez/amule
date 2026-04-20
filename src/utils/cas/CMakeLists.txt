@@ -23,6 +23,13 @@ target_link_libraries (cas
 	PkgConfig::gdlib
 )
 
+if (APPLE)
+	target_link_libraries (cas
+		"-framework CoreFoundation"
+		"-framework CoreServices"
+	)
+endif()
+
 install (TARGETS cas
 	RUNTIME DESTINATION bin
 )
