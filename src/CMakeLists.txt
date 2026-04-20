@@ -170,6 +170,13 @@ if (BUILD_ED2K)
 		)
 	endif()
 
+	if (APPLE)
+		target_link_libraries (ed2k
+			PRIVATE "-framework CoreServices"
+			PRIVATE "-framework CoreFoundation"
+		)
+	endif()
+
 	install (TARGETS ed2k
 		RUNTIME DESTINATION bin
 	)
