@@ -1,4 +1,10 @@
-find_package(Boost CONFIG REQUIRED)
+# Prefer BoostConfig.cmake when available,
+# but fall back to FindBoost (common on macOS/homebrew)
+find_package(Boost CONFIG QUIET)
+if (NOT Boost_FOUND)
+	# uses CMake's FindBoost.cmake
+	find_package(Boost REQUIRED)
+endif()
 
 if (NOT ASIO_SOCKETS)
 	include (CheckIncludeFiles)

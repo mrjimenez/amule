@@ -5,6 +5,10 @@ add_library (CRYPTOPP::CRYPTOPP
 
 set (CRYPTOPP_SEARCH_PREFIXES "cryptopp" "crypto++")
 
+if (CRYPTOPP_INCLUDE_DIR)
+	list(APPEND CMAKE_REQUIRED_INCLUDES "${CRYPTOPP_INCLUDE_DIR}")
+endif()
+
 if (NOT CRYPTOPP_INCLUDE_PREFIX)
 	unset (CRYPT_SEARCH CACHE)
 	check_include_file_cxx (cryptlib.h CRYPT_SEARCH)

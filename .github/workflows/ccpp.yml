@@ -21,6 +21,15 @@ env:
     libgd-dev \
     pkg-config
 
+  cmake_macos_deps: |
+    boost \
+    cryptopp \
+    gd \
+    gettext \
+    libupnp \
+    pkg-config \
+    wxwidgets
+
   autotools_amule_config_flags: |
     --enable-wxcas \
     --enable-cas \
@@ -105,7 +114,7 @@ jobs:
         run: cmake --build build
       - name: Run tests
         run: |
-          ctest  ${{ env.ctest_flags }} -C ${{ matrix.conf }}
+          ctest  ${{ env.ctest_flags }}
 
   build_cmake_macos:
     name: Build CMake on MacOS (${{ matrix.conf }})
@@ -117,6 +126,13 @@ jobs:
       fail-fast: false
     steps:
       - uses: actions/checkout@v6
+      - name: Install Homebrew deps
+        run: |
+          brew update
+          brew install ${{ env.cmake_macos_deps }}
+
+          # Ensure pkg-config can locate .pc files from Homebrew
+          echo "PKG_CONFIG_PATH=$(brew --prefix)/lib/pkgconfig:$(brew --prefix)/opt/gd/lib/pkgconfig:$PKG_CONFIG_PATH" >> $GITHUB_ENV
       - name: Configure
         run: |
           cmake \
@@ -125,7 +141,13 @@ jobs:
           -DCMAKE_BUILD_TYPE=${{ matrix.conf }} \
           -DBUILD_TESTING=ON \
           -DDOWNLOAD_AND_BUILD_DEPS=ON \
-          -DCMAKE_INSTALL_PREFIX=${{ GITHUB.WORKSPACE }}/test-install \
+          -DCMAKE_INSTALL_PREFIX=${{ github.workspace }}/test-install \
+          -DCMAKE_PREFIX_PATH="$(brew --prefix cryptopp);$(brew --prefix wxwidgets);$(brew --prefix boost);$(brew --prefix)" \
+          -DCMAKE_INCLUDE_PATH="$(brew --prefix cryptopp)/include;$(brew --prefix boost)/include" \
+          -DCMAKE_CXX_FLAGS="-I$(brew --prefix boost)/include -I$(brew --prefix cryptopp)/include" \
+          -DCRYPTOPP_INCLUDE_DIR="$(brew --prefix cryptopp)/include" \
+          -DBoost_INCLUDE_DIR="$(brew --prefix boost)/include" \
+          -DBoost_ROOT="$(brew --prefix boost)" \
           ${{ env.cmake_amule_config_flags }} \
           ${{ env.cmake_extra_flags }}
       - name: Build
