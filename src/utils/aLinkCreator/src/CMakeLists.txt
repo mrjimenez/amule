@@ -55,6 +55,13 @@ if (BUILD_ALC)
 		wxWidgets::CORE
 	)
 
+	if (APPLE)
+		target_link_libraries (alc
+			"-framework CoreFoundation"
+			"-framework CoreServices"
+		)
+	endif()
+
 	install (TARGETS alc
 		RUNTIME DESTINATION bin
 	)
