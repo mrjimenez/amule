@@ -421,6 +421,13 @@ if (NEED_LIB_MULEAPPCORE)
 		PUBLIC wxWidgets::BASE
 		PRIVATE CRYPTOPP::CRYPTOPP
 	)
+
+	if (APPLE)
+		target_link_libraries (muleappcore
+			PRIVATE "-framework IOKit"
+			PRIVATE "-framework CoreFoundation"
+		)
+	endif()
 endif()
 
 if (NEED_LIB_MULEAPPGUI)
