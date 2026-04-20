@@ -645,7 +645,7 @@ bool CaMuleExternalConnector::OnInit()
 
 	// Allow completion of our commands
 	theCommands = &m_commands;
-	rl_completion_entry_function = reinterpret_cast<rl_compentry_func_t*>(&command_completion);
+	rl_completion_entry_function = reinterpret_cast<decltype(rl_completion_entry_function)>(&command_completion);
 #endif
 
 	return retval;
