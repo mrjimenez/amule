@@ -83,6 +83,13 @@ if (WITH_LIBPNG)
 	)
 endif()
 
+if (APPLE)
+	target_link_libraries (amuleweb
+		PRIVATE "-framework CoreFoundation"
+		PRIVATE "-framework CoreServices"
+	)
+endif()
+
 install (TARGETS amuleweb
 	RUNTIME DESTINATION bin
 )
