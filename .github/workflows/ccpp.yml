@@ -62,7 +62,7 @@ env:
 
   cmake_extra_flags: ""
 
-  ctest_flags: |
+  ctest_flags: |-
     --output-on-failure \
     --timeout 5
 
