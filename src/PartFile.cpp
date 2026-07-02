@@ -1225,6 +1225,12 @@ void CPartFile::PartFileHashFinished(CKnownFile *result)
 {
 	m_lastDateChanged = result->m_lastDateChanged;
 	bool errorfound = false;
+	// Parts that pass their per-part hash during download but fail this
+	// final full-file re-hash (e.g. a block rewritten after the part
+	// completed) are collected here so we can attempt AICH recovery once
+	// the file is back in a downloadable state, rather than only re-gapping
+	// the whole part.
+	std::vector<uint16> corruptParts;
 	if (GetED2KPartHashCount() == 0) {
 		if (IsComplete(0, GetFileSize() - 1)) {
 			if (result->GetFileHash() != GetFileHash()) {
@@ -1263,6 +1269,18 @@ void CPartFile::PartFileHashFinished(CKnownFile *result)
 
 					AddGap(i);
 					errorfound = true;
+					const uint16 part = (uint16)i;
+					// Mirror the mid-download corruption path: flag the
+					// part in m_corrupted_list. It is not needed for the
+					// AICH block recovery below, but it primes the ICH
+					// fallback for when no trusted AICH hashset is
+					// available, and — since m_corrupted_list is persisted
+					// to the .met — it keeps the corrupt state across a
+					// restart that happens mid-recovery.
+					if (!IsCorruptedPart(part)) {
+						m_corrupted_list.push_back(part);
+					}
+					corruptParts.push_back(part);
 				}
 			} else {
 				if (!IsComplete(i)) {
@@ -1300,6 +1318,20 @@ void CPartFile::PartFileHashFinished(CKnownFile *result)
 	} else {
 		SetStatus(PS_READY);
 		SavePartFile();
+		// A part can pass its per-part hash during download yet fail this
+		// final full-file re-hash — e.g. a block rewritten after the part
+		// completed, as happens when endgame source rotation splices a
+		// block across two sources (amule-org/amule#225). AddGap() above
+		// re-opens the whole 9.28 MB part; when a trusted AICH hashset is
+		// available, recover it at 180 KB block granularity instead, so
+		// only the actually-corrupt blocks are re-downloaded (and the
+		// CorruptionBlackBox can pinpoint the bad block). RequestAICHRecovery
+		// is a no-op without a trusted hashset, so non-AICH files keep the
+		// existing whole-part re-download.
+		for (std::vector<uint16>::const_iterator it = corruptParts.begin(); it != corruptParts.end();
+			++it) {
+			RequestAICHRecovery(*it);
+		}
 		return;
 	}
 	SetStatus(PS_READY);
