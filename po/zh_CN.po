@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: aMule\n"
 "Report-Msgid-Bugs-To: https://github.com/amule-org/amule/issues\n"
 "POT-Creation-Date: 2026-07-03 16:52+0200\n"
-"PO-Revision-Date: 2026-06-26 15:01+0000\n"
+"PO-Revision-Date: 2026-07-03 16:18+0000\n"
 "Last-Translator: Mike Akiba <mike2718@gmail.com>\n"
 "Language-Team: Chinese Simplified <kde-i18n-doc@kde.org>\n"
 "Language: zh_CN\n"
@@ -25,9 +25,8 @@ msgstr ""
 "X-Generator: Poedit 3.5\n"
 
 #: src/AboutDialog.cpp:62
-#, fuzzy
 msgid "About aMule"
-msgstr "显示 aMule"
+msgstr "关于 aMule"
 
 #: src/AboutDialog.cpp:74
 msgid "aMule remote control "
@@ -67,11 +66,11 @@ msgstr " 版权所有 (c) 2002-2011 Petar Maymounkov ( petar@maymounkov.org )\n"
 
 #: src/AboutDialog.cpp:100
 msgid "Website:"
-msgstr ""
+msgstr "网站："
 
 #: src/AboutDialog.cpp:101
 msgid "Forum:"
-msgstr ""
+msgstr "论坛："
 
 #: src/AboutDialog.cpp:102
 msgid "Documentation:"
@@ -79,35 +78,32 @@ msgstr "文档："
 
 #: src/AboutDialog.cpp:103
 msgid "Issues:"
-msgstr ""
+msgstr "问题："
 
 #: src/AboutDialog.cpp:112
-#, fuzzy
 msgid "Click to check for a newer version."
-msgstr "启动时检查新版本"
+msgstr "单击检查新版本。"
 
 #: src/AboutDialog.cpp:113
 msgid "Check for updates"
-msgstr ""
+msgstr "检查更新"
 
 #: src/AboutDialog.cpp:162
-#, fuzzy
 msgid "Checking for updates..."
-msgstr "正在连接至 Kad..."
+msgstr "正在检查更新…"
 
 #: src/AboutDialog.cpp:172
-#, fuzzy
 msgid "You are running the latest version."
-msgstr "您使用的是老版本的aMule！"
+msgstr "运行的是最新版。"
 
 #: src/AboutDialog.cpp:176
-#, fuzzy, c-format
+#, c-format
 msgid "A new version (%s) is available:"
-msgstr "不可用"
+msgstr "有新版本（%s）可用："
 
 #: src/AboutDialog.cpp:180
 msgid "Could not check for updates. Please try again later."
-msgstr ""
+msgstr "无法检查更新。请稍后重试。"
 
 #: src/AddFriend.cpp:44
 msgid "Add a Friend"
@@ -586,19 +582,23 @@ msgid "FATAL ERROR: Failed to create Timer"
 msgstr "致命错误：创建计时器失败"
 
 #: src/amuleDlg.cpp:606
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "A new version of aMule (%s) is available.\n"
 "\n"
 "You are running %s.\n"
 "\n"
 "Would you like to open the download page?"
-msgstr "最新版本可从这里下载：https://github.com/amule-org/amule/releases/latest"
+msgstr ""
+"有新版 aMule (%s) 可用。\n"
+"\n"
+"正在运行 %s.\n"
+"\n"
+"要打开下载页吗？"
 
 #: src/amuleDlg.cpp:610
-#, fuzzy
 msgid "New version available"
-msgstr "不可用"
+msgstr "有新版"
 
 #: src/amuleDlg.cpp:631
 msgid "aMule dialog destroyed"
@@ -7888,7 +7888,7 @@ msgstr "正在处理请求 [已重定向]: "
 
 #: packaging/windows/installer_strings.c:36
 msgid "aMule (required)"
-msgstr ""
+msgstr "aMule（必需）"
 
 #: packaging/windows/installer_strings.c:37
 msgid "Desktop shortcut"
@@ -7900,7 +7900,7 @@ msgstr "登录时启动 aMule"
 
 #: packaging/windows/installer_strings.c:39
 msgid "Uninstall"
-msgstr ""
+msgstr "卸载"
 
 #: packaging/windows/installer_strings.c:40
 msgid "Remove user data (config, ED2K servers, Kad nodes, partfiles)"
@@ -7912,7 +7912,7 @@ msgstr "aMule 程序文件（必需）。"
 
 #: packaging/windows/installer_strings.c:44
 msgid "Place an aMule shortcut on the desktop."
-msgstr ""
+msgstr "在桌面上创建 aMule 快捷方式。"
 
 #: packaging/windows/installer_strings.c:45
 msgid "Launch aMule automatically when the current user logs in (per-user setting)."

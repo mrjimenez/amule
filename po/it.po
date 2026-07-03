@@ -20,7 +20,7 @@ msgstr ""
 "Project-Id-Version: aMule 2.3.3\n"
 "Report-Msgid-Bugs-To: https://github.com/amule-org/amule/issues\n"
 "POT-Creation-Date: 2026-07-03 16:52+0200\n"
-"PO-Revision-Date: 2026-06-25 11:10+0000\n"
+"PO-Revision-Date: 2026-07-03 16:27+0000\n"
 "Last-Translator: got3nks <got3nks@users.noreply.github.com>\n"
 "Language-Team: SebastianoPistore.info@protonmail.ch\n"
 "Language: it\n"
@@ -31,9 +31,8 @@ msgstr ""
 "X-Generator: Poedit 3.2.2\n"
 
 #: src/AboutDialog.cpp:62
-#, fuzzy
 msgid "About aMule"
-msgstr "Mostra aMule"
+msgstr "Informazioni su aMule"
 
 #: src/AboutDialog.cpp:74
 msgid "aMule remote control "
@@ -88,32 +87,29 @@ msgid "Issues:"
 msgstr "Segnalazioni:"
 
 #: src/AboutDialog.cpp:112
-#, fuzzy
 msgid "Click to check for a newer version."
-msgstr "Verifica la disponibilità di nuove versioni all'avvio"
+msgstr "Fai clic per verificare la disponibilità di una versione più recente."
 
 #: src/AboutDialog.cpp:113
 msgid "Check for updates"
-msgstr ""
+msgstr "Controlla la presenza di aggiornamenti"
 
 #: src/AboutDialog.cpp:162
-#, fuzzy
 msgid "Checking for updates..."
-msgstr "Connessione alla rete Kad..."
+msgstr "Controllo aggiornamenti in corso..."
 
 #: src/AboutDialog.cpp:172
-#, fuzzy
 msgid "You are running the latest version."
-msgstr "Stai usando una versione non aggiornata di aMule!"
+msgstr "Stai utilizzando la versione più recente."
 
 #: src/AboutDialog.cpp:176
-#, fuzzy, c-format
+#, c-format
 msgid "A new version (%s) is available:"
-msgstr "Non disponibile"
+msgstr "Una nuova versione (%s) è disponibile:"
 
 #: src/AboutDialog.cpp:180
 msgid "Could not check for updates. Please try again later."
-msgstr ""
+msgstr "Impossibile verificare la disponibilità di aggiornamenti. Riprova più tardi."
 
 #: src/AddFriend.cpp:44
 msgid "Add a Friend"
@@ -262,12 +258,12 @@ msgstr "Risultati del debug della memoria per la chiusura di aMule:"
 #: src/amule.cpp:577
 #, c-format
 msgid "Binding aMule's peer-to-peer traffic to interface: %s (HTTP updates use the default route)"
-msgstr ""
+msgstr "Associazione del traffico peer-to-peer di aMule all'interfaccia: %s (gli aggiornamenti HTTP usano la route predefinita)"
 
 #: src/amule.cpp:581
 #, c-format
 msgid "Binding all network traffic to interface: %s"
-msgstr ""
+msgstr "Associazione di tutto il traffico di rete all'interfaccia: %s"
 
 #: src/amule.cpp:585
 #, c-format
@@ -596,19 +592,23 @@ msgid "FATAL ERROR: Failed to create Timer"
 msgstr "ERRORE FATALE: Creazione timer fallita"
 
 #: src/amuleDlg.cpp:606
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "A new version of aMule (%s) is available.\n"
 "\n"
 "You are running %s.\n"
 "\n"
 "Would you like to open the download page?"
-msgstr "L'ultima versione è sempre disponibile su https://github.com/amule-org/amule/releases/latest"
+msgstr ""
+"Una nuova versione di aMule (%s) è disponibile.\n"
+"\n"
+"Stai eseguendo %s.\n"
+"\n"
+"Vuoi aprire la pagina di download?"
 
 #: src/amuleDlg.cpp:610
-#, fuzzy
 msgid "New version available"
-msgstr "Non disponibile"
+msgstr "Nuova versione disponibile"
 
 #: src/amuleDlg.cpp:631
 msgid "aMule dialog destroyed"
