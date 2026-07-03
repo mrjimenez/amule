@@ -112,6 +112,7 @@ if (BUILD_MONOLITHIC OR BUILD_DAEMON OR BUILD_REMOTEGUI)
 		HTTPDownload.cpp
 		KnownFile.cpp
 		Logger.cpp
+		MediaProbe.cpp
 		PartFile.cpp
 		Preferences.cpp
 		Proxy.cpp

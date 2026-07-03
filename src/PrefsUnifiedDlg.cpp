@@ -66,6 +66,7 @@
 #include "SharedDirsApplyTask.h" // Recursive-share expansion worker
 #include "muuli_wdr.h"
 #include "Logger.h"
+#include "MediaProbe.h"    // Needed for the FFProbePath Detect button handler
 #include <common/Format.h> // Needed for CFormat
 #include "TransferWnd.h"   // Needed for CTransferWnd::UpdateCatTabTitles()
 #include "KadDlg.h"        // Needed for CKadDlg
@@ -169,6 +170,7 @@ wxBEGIN_EVENT_TABLE(PrefsUnifiedDlg, wxDialog)
 	EVT_CHECKBOX(IDC_NETWORKKAD, PrefsUnifiedDlg::OnCheckBoxChange)
 	EVT_CHECKBOX(IDC_UPNP_ENABLED, PrefsUnifiedDlg::OnCheckBoxChange)
 	EVT_CHECKBOX(IDC_UPNP_WEBSERVER_ENABLED, PrefsUnifiedDlg::OnCheckBoxChange)
+	EVT_CHECKBOX(IDC_MEDIAMETA_ENABLED, PrefsUnifiedDlg::OnCheckBoxChange)
 
 	// Autostart-on-login: state lives in the OS (registry / plist /
 	// .desktop), not aMule.conf, so it gets its own handler that
@@ -185,6 +187,8 @@ wxBEGIN_EVENT_TABLE(PrefsUnifiedDlg, wxDialog)
 	EVT_BUTTON(IDC_SELINCDIR, PrefsUnifiedDlg::OnButtonDir)
 	EVT_BUTTON(IDC_SELOSDIR, PrefsUnifiedDlg::OnButtonDir)
 	EVT_BUTTON(IDC_SELBROWSER, PrefsUnifiedDlg::OnButtonBrowseApplication)
+	EVT_BUTTON(IDC_MEDIAMETA_FFPROBEBROWSE, PrefsUnifiedDlg::OnButtonBrowseApplication)
+	EVT_BUTTON(IDC_MEDIAMETA_FFPROBEDETECT, PrefsUnifiedDlg::OnButtonMediaMetaDetect)
 
 	EVT_SPINCTRL(IDC_TOOLTIPDELAY, PrefsUnifiedDlg::OnToolTipDelayChange)
 
@@ -665,6 +669,17 @@ bool PrefsUnifiedDlg::TransferToWindow()
 	FindWindow(IDC_STARTNEXTFILE_SAME)->Enable(thePrefs::StartNextFile());
 	FindWindow(IDC_STARTNEXTFILE_ALPHA)->Enable(thePrefs::StartNextFile());
 
+	// Gate the ffprobe path controls on the master Media metadata toggle
+	// so a disabled feature doesn't show a live-looking Detect / Browse
+	// UI that silently does nothing.
+	{
+		const bool mmOn = thePrefs::GetMediaMetadataEnabled();
+		FindWindow(IDC_MEDIAMETA_FFPROBEPATHTEXT)->Enable(mmOn);
+		FindWindow(IDC_MEDIAMETA_FFPROBEPATH)->Enable(mmOn);
+		FindWindow(IDC_MEDIAMETA_FFPROBEBROWSE)->Enable(mmOn);
+		FindWindow(IDC_MEDIAMETA_FFPROBEDETECT)->Enable(mmOn);
+	}
+
 	// The tray icon is the only recovery surface for a window hidden
 	// via the close button: on Linux/Windows the option needs the tray
 	// to bring the window back, and on macOS the matching code path
@@ -742,6 +757,12 @@ bool PrefsUnifiedDlg::TransferToWindow()
 		IDC_PARANOID,
 		IDC_IPFILTERSYS,
 		IDC_STARTNEXTFILE_ALPHA,
+		// Media metadata (issue #140) — probing runs daemon-side.
+		IDC_MEDIAMETA_ENABLED,
+		IDC_MEDIAMETA_FFPROBEPATH,
+		IDC_MEDIAMETA_FFPROBEPATHTEXT,
+		IDC_MEDIAMETA_FFPROBEBROWSE,
+		IDC_MEDIAMETA_FFPROBEDETECT,
 	};
 	for (int id : amuledOnlyPrefs) {
 		if (wxWindow *w = FindWindow(id)) {
@@ -1212,6 +1233,13 @@ void PrefsUnifiedDlg::OnCheckBoxChange(wxCommandEvent &event)
 		FindWindow(IDC_UPNPTCPPORTTEXT)->Enable(value);
 		break;
 
+	case IDC_MEDIAMETA_ENABLED:
+		FindWindow(IDC_MEDIAMETA_FFPROBEPATHTEXT)->Enable(value);
+		FindWindow(IDC_MEDIAMETA_FFPROBEPATH)->Enable(value);
+		FindWindow(IDC_MEDIAMETA_FFPROBEBROWSE)->Enable(value);
+		FindWindow(IDC_MEDIAMETA_FFPROBEDETECT)->Enable(value);
+		break;
+
 	case IDC_UPNP_WEBSERVER_ENABLED:
 		FindWindow(IDC_WEBUPNPTCPPORT)->Enable(value);
 		FindWindow(IDC_WEBUPNPTCPPORTTEXT)->Enable(value);
@@ -1435,6 +1463,10 @@ void PrefsUnifiedDlg::OnButtonBrowseApplication(wxCommandEvent &event)
 		id = IDC_BROWSERSELF;
 		title = _("Select browser");
 		break;
+	case IDC_MEDIAMETA_FFPROBEBROWSE:
+		id = IDC_MEDIAMETA_FFPROBEPATH;
+		title = _("Select ffprobe binary");
+		break;
 	default:
 		wxFAIL;
 		return;
@@ -1463,6 +1495,24 @@ void PrefsUnifiedDlg::OnButtonBrowseApplication(wxCommandEvent &event)
 		wxTextCtrl *widget = CastChild(id, wxTextCtrl);
 		widget->SetValue(str);
 	}
+}
+
+void PrefsUnifiedDlg::OnButtonMediaMetaDetect(wxCommandEvent &WXUNUSED(evt))
+{
+	// Kick MediaProbe's autodetect and populate the path field with
+	// whatever it finds. Empty result -> tell the user politely; a
+	// path in-hand is the more useful common case so we don't try
+	// to also validate the binary here (Browse... covers that).
+	const wxString path = MediaProbe::AutoDetectPath();
+	if (path.IsEmpty()) {
+		wxMessageBox(_("ffprobe not found on PATH or in the standard install locations. Install "
+			       "ffmpeg (which ships ffprobe) or use Browse to pick a binary manually."),
+			_("Media metadata extraction"),
+			wxOK | wxICON_INFORMATION,
+			this);
+		return;
+	}
+	CastChild(IDC_MEDIAMETA_FFPROBEPATH, wxTextCtrl)->SetValue(path);
 }
 
 void PrefsUnifiedDlg::OnButtonEditAddr(wxCommandEvent &WXUNUSED(evt))
