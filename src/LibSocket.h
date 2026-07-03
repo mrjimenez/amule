@@ -247,4 +247,33 @@ private:
 	class CAsioServiceThread *m_threads;
 };
 
+// Set the network interface every socket binds its egress to (empty = system
+// default). Pushed in by the core from thePrefs::GetNetworkInterface() so this
+// socket library stays independent of CPreferences. Takes effect for sockets
+// opened after the call.
+void SetSocketBindInterface(const wxString &iface);
+
+// Outcome of validating the configured bind interface, so the core can report
+// it once at startup instead of discovering it silently per socket.
+enum BindInterfaceStatus
+{
+	BindIface_Empty,      // no interface configured (default)
+	BindIface_OK,         // resolves and binds
+	BindIface_NotFound,   // name/index does not match any interface
+	BindIface_Denied,     // bind needs a privilege we don't have (Linux CAP_NET_RAW)
+	BindIface_Unsupported // platform can't bind, or another error
+};
+
+// Validate the configured bind interface on a throwaway socket. Lets the core
+// warn the user (not found / permission denied) before any real socket opens,
+// rather than leaving traffic silently unbound.
+BindInterfaceStatus TestSocketBindInterface(const wxString &iface);
+
+// Bind an already-open raw socket to the given interface, reusing the exact
+// same per-platform logic as aMule's own sockets. For non-asio sockets such as
+// libcurl's HTTP socket (via CURLOPT_SOCKOPTFUNCTION). The fd is passed as
+// uintptr_t so a Windows SOCKET survives without truncation. Returns true if
+// bound (or nothing to do), false if the bind failed.
+bool BindRawSocketToInterface(uintptr_t fd, const wxString &iface);
+
 #endif /* __LIBSOCKET_H__ */

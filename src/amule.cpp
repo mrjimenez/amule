@@ -74,6 +74,7 @@
 #include "InternalEvents.h"       // Needed for CMuleInternalEvent
 #include "IPFilter.h"             // Needed for CIPFilter
 #include "KnownFileList.h"        // Needed for CKnownFileList
+#include "LibSocket.h"            // Needed for SetSocketBindInterface
 #include "ListenSocket.h"         // Needed for CListenSocket
 #include "Logger.h"               // Needed for CLogger // Do_not_auto_remove
 #include "MagnetURI.h"            // Needed for CMagnetURI
@@ -555,6 +556,50 @@ bool CamuleApp::OnInit()
 	}
 
 	glob_prefs = new CPreferences();
+
+	// Push the bind-to-interface preference into the socket library before any
+	// socket is opened (mulesocket can't read CPreferences itself). It's a
+	// security-relevant choice (VPN-leak prevention), so make the outcome
+	// visible: confirm the bind when it applies, and warn loudly when it does
+	// not (bad name, or missing privilege on Linux) — otherwise traffic would
+	// silently stay on the default route while the user believes it is contained.
+	const wxString &bindInterface = thePrefs::GetNetworkInterface();
+	SetSocketBindInterface(bindInterface);
+	switch (TestSocketBindInterface(bindInterface)) {
+	case BindIface_Empty:
+		break; // no interface configured — nothing to report
+	case BindIface_OK:
+#ifdef __WINDOWS__
+		// On Windows only the ed2k/Kad sockets are bound; aMule's HTTP
+		// (version check, IP2Country, server.met) uses the WinHTTP backend,
+		// which has no interface-bind API — so say so rather than overclaim.
+		AddLogLineN(CFormat(_("Binding aMule's peer-to-peer traffic to interface: %s "
+				      "(HTTP updates use the default route)")) %
+			    bindInterface);
+#else
+		AddLogLineN(CFormat(_("Binding all network traffic to interface: %s")) % bindInterface);
+#endif
+		break;
+	case BindIface_NotFound:
+		AddLogLineC(CFormat(_("WARNING: configured network interface '%s' was not found - "
+				      "traffic is NOT bound to it and may leave via the default "
+				      "route. Check the interface name in Preferences.")) %
+			    bindInterface);
+		break;
+	case BindIface_Denied:
+		AddLogLineC(CFormat(_("WARNING: binding to network interface '%s' requires elevated "
+				      "privileges and was NOT applied - traffic may leave via the "
+				      "default route. Grant the capability (e.g. 'sudo setcap "
+				      "cap_net_raw+ep' on the aMule binary) or run with sufficient "
+				      "privileges.")) %
+			    bindInterface);
+		break;
+	default:
+		AddLogLineC(CFormat(_("WARNING: could not bind to network interface '%s' - traffic "
+				      "may leave via the default route.")) %
+			    bindInterface);
+		break;
+	}
 
 	// The temp / incoming directories are validated and created further
 	// down, after the first-run wizard has had a chance to point them
