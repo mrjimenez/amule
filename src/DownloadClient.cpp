@@ -643,7 +643,12 @@ void CUpDownClient::SendBlockRequests()
 
 		CUpDownClient *slower_client = NULL;
 
-		if (thePrefs::GetDropSlowSources()) {
+		bool nearCompletion =
+			m_reqfile->GetPartCount() > 4 &&
+			(m_reqfile->GetFileSize() > m_reqfile->GetCompletedSize()) &&
+			((m_reqfile->GetFileSize() - m_reqfile->GetCompletedSize()) <= (4 * PARTSIZE));
+
+		if (thePrefs::GetDropSlowSources() || (nearCompletion && thePrefs::GetEndgame())) {
 			slower_client = m_reqfile->GetSlowerDownloadingClient(m_lastaverage, this);
 		}
 
@@ -663,7 +668,12 @@ void CUpDownClient::SendBlockRequests()
 			slower_client->SetSentCancelTransfer(1);
 		}
 
-		slower_client->SetDownloadState(DS_NONEEDEDPARTS);
+		if (slower_client == this && nearCompletion) {
+			// requeue instead of self-banishing at endgame
+			slower_client->SetDownloadState(DS_ONQUEUE);
+		} else {
+			slower_client->SetDownloadState(DS_NONEEDEDPARTS);
+		}
 
 		if (slower_client != this) {
 			// Re-request freed blocks.
@@ -686,8 +696,25 @@ void CUpDownClient::SendBlockRequests()
 					m_PendingBlocks_list.push_back(pblock);
 				}
 			} else {
-				// WTF, we just freed blocks.
-				wxFAIL_MSG("No free blocks to request after freeing some blocks");
+				// It's possible the freed blocks were not available on our source.
+				// Just drop ourselves gracefully instead of crashing.
+				if (!GetSentCancelTransfer()) {
+					CPacket *packet = new CPacket(OP_CANCELTRANSFER, 0, OP_EDONKEYPROT);
+					theStats::AddUpOverheadFileRequest(packet->GetPacketSize());
+					ClearDownloadBlockRequests();
+					SendPacket(packet, true, true);
+					SetSentCancelTransfer(1);
+				}
+				AddDebugLogLineN(logLocalClient,
+					"Local Client: OP_CANCELTRANSFER (freed blocks not available "
+					"here) to " +
+						GetFullIP());
+				if (nearCompletion) {
+					// requeue instead of self-banishing at endgame
+					SetDownloadState(DS_ONQUEUE);
+				} else {
+					SetDownloadState(DS_NONEEDEDPARTS);
+				}
 				return;
 			}
 		} else {
@@ -1819,3 +1846,20 @@ void CUpDownClient::ProcessAICHFileHash(CMemFile *data, const CPartFile *file)
 	}
 }
 // File_checked_for_headers
+
+bool CUpDownClient::HasUsefulBlocksFor(CUpDownClient *other) const
+{
+	// Check part-level availability, not block-level.
+	// A block fits within a single part (180 KB << 9.28 MB).
+	for (const Requested_Block_Struct *block : m_DownloadBlocks_list) {
+		if (other->IsPartAvailable(block->StartOffset / PARTSIZE)) {
+			return true;
+		}
+	}
+	for (const Pending_Block_Struct *pblock : m_PendingBlocks_list) {
+		if (other->IsPartAvailable(pblock->block->StartOffset / PARTSIZE)) {
+			return true;
+		}
+	}
+	return false;
+}
