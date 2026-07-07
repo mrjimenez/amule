@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: aMule\n"
 "Report-Msgid-Bugs-To: https://github.com/amule-org/amule/issues\n"
 "POT-Creation-Date: 2026-07-07 01:18+0200\n"
-"PO-Revision-Date: 2026-07-06 23:54+0000\n"
+"PO-Revision-Date: 2026-07-07 12:55+0000\n"
 "Last-Translator: Mike Akiba <mike2718@gmail.com>\n"
 "Language-Team: Chinese Simplified <kde-i18n-doc@kde.org>\n"
 "Language: zh_CN\n"
@@ -2575,7 +2575,6 @@ msgid "Connection failure"
 msgstr "连接失败"
 
 #: src/libs/ec/cpp/RemoteConnect.cpp:263
-#, fuzzy
 msgid "External Connection lost - exiting."
 msgstr "外部连接丢失 — 正在退出。"
 
@@ -6697,7 +6696,7 @@ msgstr "带宽限制：上传：%u kB/s，下载：%u kB/s。\n"
 #: src/TextClient.cpp:860
 #, c-format
 msgid "Endgame source rotation is %s.\n"
-msgstr ""
+msgstr "Endgame 源轮替状态为 %s。\n"
 
 #: src/TextClient.cpp:873
 msgid "eD2k"
@@ -6975,9 +6974,8 @@ msgid "Set download bandwidth limit."
 msgstr "设置下载带宽限制。"
 
 #: src/TextClient.cpp:1219
-#, fuzzy
 msgid "Enable or disable endgame source rotation."
-msgstr "启用/禁用用户名/密码验证"
+msgstr "启用/禁用 末端 源轮替。"
 
 #: src/TextClient.cpp:1220
 #, fuzzy
@@ -7014,7 +7012,7 @@ msgstr "获取带宽限制。"
 
 #: src/TextClient.cpp:1259
 msgid "Get endgame source rotation state."
-msgstr ""
+msgstr "获取 末端 源轮替状态。"
 
 #: src/TextClient.cpp:1265
 msgid "Execute a search."

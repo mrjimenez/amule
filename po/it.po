@@ -20,7 +20,7 @@ msgstr ""
 "Project-Id-Version: aMule 2.3.3\n"
 "Report-Msgid-Bugs-To: https://github.com/amule-org/amule/issues\n"
 "POT-Creation-Date: 2026-07-07 01:18+0200\n"
-"PO-Revision-Date: 2026-07-06 23:47+0000\n"
+"PO-Revision-Date: 2026-07-07 12:55+0000\n"
 "Last-Translator: got3nks <got3nks@users.noreply.github.com>\n"
 "Language-Team: SebastianoPistore.info@protonmail.ch\n"
 "Language: it\n"
@@ -128,7 +128,6 @@ msgid "The specified userhash is not valid!"
 msgstr "L'hash utente specificato non è valido!"
 
 #: src/AppImageIntegration.cpp:317
-#, fuzzy
 msgid ""
 "aMule can install desktop launchers, icons, and shell command shortcuts into your home directory so it appears in your application menu like a regularly installed app.\n"
 "\n"
@@ -136,7 +135,7 @@ msgid ""
 "\n"
 "Install desktop integration now?"
 msgstr ""
-"aMule può installare un'icona di avvio nel menu delle applicazioni mostrandosi come una qualunque app installata. L'operazione è reversibile — i file saranno collocati in ~/.local/share/applications e ~/.local/share/icons e potranno essere rimossi in qualsiasi momento.\n"
+"aMule può installare un'icona di avvio nel menu delle applicazioni mostrandosi come una qualunque app installata. L'operazione è reversibile - i file saranno collocati in ~/.local/share/applications e ~/.local/share/icons e potranno essere rimossi in qualsiasi momento.\n"
 "\n"
 "Installare ora l'integrazione con il desktop?"
 
@@ -176,9 +175,9 @@ msgid "Cannot install desktop integration: failed to write %s. Check that your h
 msgstr "Impossibile installare l'integrazione con il desktop: errore nella scrittura di %s. Verificare che la home directory sia scrivibile."
 
 #: src/AppImageIntegration.cpp:409
-#, fuzzy, c-format
+#, c-format
 msgid "AppImage integration: aMule added to your application menu (%d shell shortcuts under ~/.local/bin)."
-msgstr "Integrazione AppImage: aMule è stato aggiunto al menu delle applicazioni."
+msgstr "Integrazione AppImage: aMule aggiunto al menu delle applicazioni (%d collegamenti shell in ~/.local/bin)."
 
 #: src/AppImageIntegration.cpp:414
 msgid ""
@@ -2587,9 +2586,8 @@ msgid "Connection failure"
 msgstr "Connessione fallita"
 
 #: src/libs/ec/cpp/RemoteConnect.cpp:263
-#, fuzzy
 msgid "External Connection lost - exiting."
-msgstr "Connessione esterna persa — uscita in corso."
+msgstr "Connessione esterna persa - uscita in corso."
 
 #: src/libs/ec/cpp/RemoteConnect.cpp:328
 msgid "EC connection failed. Empty reply."
@@ -3432,19 +3430,19 @@ msgstr "Registra una voce di avvio automatico per l'utente nel sistema operativo
 
 #: src/muuli_wdr.cpp:1234
 msgid "Register aMule for ed2k:// links"
-msgstr ""
+msgstr "Registra aMule per i link ed2k://"
 
 #: src/muuli_wdr.cpp:1235
 msgid "Makes aMule the default handler for ed2k:// links so clicking one in your browser or file manager opens it here."
-msgstr ""
+msgstr "Imposta aMule come gestore predefinito per i link ed2k://, cliccandone uno nel browser o nel file manager verrà aperto qui."
 
 #: src/muuli_wdr.cpp:1238
 msgid "Register aMule for magnet: links"
-msgstr ""
+msgstr "Registra aMule per i link magnet:"
 
 #: src/muuli_wdr.cpp:1239
 msgid "aMule only handles eD2k-compatible magnets (containing xt=urn:ed2k:). BitTorrent magnets are NOT supported and clicking them will silently fail. If you use a BitTorrent client (Transmission, qBittorrent, etc.), leave this off."
-msgstr ""
+msgstr "aMule gestisce solo i magnet compatibili con eD2k (che contengono xt=urn:ed2k:). I magnet BitTorrent NON sono supportati e cliccandoli non succederà nulla. Se usi un client BitTorrent (Transmission, qBittorrent, ecc.), lascia questa opzione disattivata."
 
 #: src/muuli_wdr.cpp:1242
 msgid "Start minimized"
@@ -3683,7 +3681,7 @@ msgstr "Cerca di scaricare prima la parte iniziale e finale del file"
 
 #: src/muuli_wdr.cpp:1538
 msgid "Endgame mode: rotate to faster sources for the final blocks"
-msgstr ""
+msgstr "Modalità endgame: passa a fonti più veloci per gli ultimi blocchi"
 
 #: src/muuli_wdr.cpp:1541
 msgid "Start next paused file when a file completes"
@@ -5369,26 +5367,24 @@ msgstr "Avvio automatico"
 #: src/PrefsUnifiedDlg.cpp:1243
 #, c-format
 msgid "aMule only handles eD2k-compatible magnets. If you replace the current magnet handler (%s), BitTorrent magnet links will stop working - aMule cannot download BitTorrent content. Continue?"
-msgstr ""
+msgstr "aMule gestisce solo i magnet compatibili con eD2k. Se sostituisci il gestore magnet attuale (%s), i link magnet BitTorrent smetteranno di funzionare: aMule non può scaricare contenuti BitTorrent. Continuare?"
 
 #: src/PrefsUnifiedDlg.cpp:1248
 #, c-format
 msgid "Another application is currently the default handler for these links (%s). Replace it with aMule?"
-msgstr ""
+msgstr "Attualmente un'altra applicazione è il gestore predefinito per questi link (%s). Sostituirla con aMule?"
 
 #: src/PrefsUnifiedDlg.cpp:1254 src/PrefsUnifiedDlg.cpp:1275
 msgid "Register URL handler"
-msgstr ""
+msgstr "Registra gestore URL"
 
 #: src/PrefsUnifiedDlg.cpp:1272
-#, fuzzy
 msgid "Could not register aMule as the URL handler. The registration store may be read-only."
-msgstr "Impossibile registrare aMule per l'avvio automatico all'accesso. L'archivio di avvio automatico potrebbe essere in sola lettura."
+msgstr "Impossibile registrare aMule come gestore URL. Il registro delle associazioni potrebbe essere in sola lettura."
 
 #: src/PrefsUnifiedDlg.cpp:1274
-#, fuzzy
 msgid "Could not remove the URL handler registration."
-msgstr "Impossibile rimuovere la voce di avvio automatico all'accesso."
+msgstr "Impossibile rimuovere la registrazione del gestore URL."
 
 #: src/PrefsUnifiedDlg.cpp:1359
 msgid ""
@@ -6708,7 +6704,7 @@ msgstr "Limiti di banda: Up: %u kB/s, Down: %u kB/s.\n"
 #: src/TextClient.cpp:860
 #, c-format
 msgid "Endgame source rotation is %s.\n"
-msgstr ""
+msgstr "La rotazione delle fonti in modalità endgame è %s.\n"
 
 #: src/TextClient.cpp:873
 msgid "eD2k"
@@ -6986,14 +6982,12 @@ msgid "Set download bandwidth limit."
 msgstr "Imposta limiti di banda per il download."
 
 #: src/TextClient.cpp:1219
-#, fuzzy
 msgid "Enable or disable endgame source rotation."
-msgstr "Abilita o disabilita l'autenticazione con nome utente e password"
+msgstr "Attiva o disattiva la rotazione delle fonti in modalità endgame."
 
 #: src/TextClient.cpp:1220
-#, fuzzy
 msgid "The given value must be 1/ON (enable) or 0/OFF (disable).\n"
-msgstr "Il valore inserito deve essere espresso in kilobyte al secondo.\n"
+msgstr "Il valore fornito deve essere 1/ON (attiva) o 0/OFF (disattiva).\n"
 
 #: src/TextClient.cpp:1225
 msgid "Get and display a preference value."
@@ -7025,7 +7019,7 @@ msgstr "Visualizza limita di banda."
 
 #: src/TextClient.cpp:1259
 msgid "Get endgame source rotation state."
-msgstr ""
+msgstr "Ottieni lo stato della rotazione delle fonti in modalità endgame."
 
 #: src/TextClient.cpp:1265
 msgid "Execute a search."
