@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: aMule\n"
 "Report-Msgid-Bugs-To: https://github.com/amule-org/amule/issues\n"
 "POT-Creation-Date: 2026-07-08 12:33+0200\n"
-"PO-Revision-Date: 2026-07-07 15:16+0000\n"
+"PO-Revision-Date: 2026-07-08 13:29+0000\n"
 "Last-Translator: Mike Akiba <mike2718@gmail.com>\n"
 "Language-Team: Chinese Simplified <kde-i18n-doc@kde.org>\n"
 "Language: zh_CN\n"
@@ -122,7 +122,6 @@ msgid "The specified userhash is not valid!"
 msgstr "指定的用户哈希无效！"
 
 #: src/AppImageIntegration.cpp:317
-#, fuzzy
 msgid ""
 "aMule can install desktop launchers, icons, and shell command shortcuts into your home directory so it appears in your application menu like a regularly installed app.\n"
 "\n"
@@ -130,7 +129,9 @@ msgid ""
 "\n"
 "Install desktop integration now?"
 msgstr ""
-"aMule 可以在主目录中安装桌面启动器和图标，以便它像常规安装的应用程序一样显示在应用菜单中。此操作是可逆的—— 相关文件存放在 ~/.local/share/applications 和 ~/.local/share/icons 目录下，你可以随时将其删除。\n"
+"aMule 可以在主目录中安装桌面启动器和图标，以便它像常规安装的应用程序一样显示在应用菜单中。\n"
+"\n"
+"此操作是可逆的—— 相关文件存放在 ~/.local/share/applications 和 ~/.local/share/icons 目录下，你可以随时将其删除。\n"
 "\n"
 "现在立即安装桌面集成吗？"
 
@@ -170,9 +171,9 @@ msgid "Cannot install desktop integration: failed to write %s. Check that your h
 msgstr "无法安装桌面集成。写入 %s 失败。请检查主目录是可写入的。"
 
 #: src/AppImageIntegration.cpp:409
-#, fuzzy, c-format
+#, c-format
 msgid "AppImage integration: aMule added to your application menu (%d shell shortcuts under ~/.local/bin)."
-msgstr "AppImage 集成：aMule 已添加到你的应用程序菜单。"
+msgstr "AppImage 集成：aMule 已添加到你的应用程序菜单(%d shell 快捷方式，位于~/.local/bin)。"
 
 #: src/AppImageIntegration.cpp:414
 msgid ""
@@ -3420,19 +3421,19 @@ msgstr "在操作系统中注册一个按用户自动启动的条目，以便在
 
 #: src/muuli_wdr.cpp:1234
 msgid "Register aMule for ed2k:// links"
-msgstr ""
+msgstr "将 aMule 注册为打开 ed2k:// 链接的应用"
 
 #: src/muuli_wdr.cpp:1235
 msgid "Makes aMule the default handler for ed2k:// links so clicking one in your browser or file manager opens it here."
-msgstr ""
+msgstr "让 aMule 成为 ed2k:// 链接的默认处理程序，因而在浏览器或文件管理器中点击一个该类型链接时可以在本应用打开。"
 
 #: src/muuli_wdr.cpp:1238
 msgid "Register aMule for magnet: links"
-msgstr ""
+msgstr "将 aMule 注册为打开 magnet: 链接的应用"
 
 #: src/muuli_wdr.cpp:1239
 msgid "aMule only handles eD2k-compatible magnets (containing xt=urn:ed2k:). BitTorrent magnets are NOT supported and clicking them will silently fail. If you use a BitTorrent client (Transmission, qBittorrent, etc.), leave this off."
-msgstr ""
+msgstr "aMule 仅支持兼容 eD2k 的磁力链接（包含 xt=urn:ed2k:）。不支持 BitTorrent 磁力链接，点击此类链接将静默失败。如果你正在使用 BitTorrent 客户端（如 Transmission、qBittorrent 等），请勿开启此项。"
 
 #: src/muuli_wdr.cpp:1242
 msgid "Start minimized"
@@ -3671,7 +3672,7 @@ msgstr "尝试先下载文件的第一段和最后一段"
 
 #: src/muuli_wdr.cpp:1538
 msgid "Endgame mode: rotate to faster sources for the final blocks"
-msgstr ""
+msgstr "末端模式：在下载最后的区块时，切换至速度更快的来源"
 
 #: src/muuli_wdr.cpp:1541
 msgid "Start next paused file when a file completes"
@@ -5410,26 +5411,24 @@ msgstr "自启动"
 #: src/PrefsUnifiedDlg.cpp:1276
 #, c-format
 msgid "aMule only handles eD2k-compatible magnets. If you replace the current magnet handler (%s), BitTorrent magnet links will stop working - aMule cannot download BitTorrent content. Continue?"
-msgstr ""
+msgstr "aMule 仅支持兼容 eD2k 的磁力链接。如果替换当前磁力链接处理程序（%s），BitTorrent 磁力链接将停止工作——aMule 无法下载 BitTorrent 内容。是否继续？"
 
 #: src/PrefsUnifiedDlg.cpp:1281
 #, c-format
 msgid "Another application is currently the default handler for these links (%s). Replace it with aMule?"
-msgstr ""
+msgstr "目前已存在另一个应用程序作为这些链接（%s) 的默认处理程序。是否要将其换成aMule？"
 
 #: src/PrefsUnifiedDlg.cpp:1287 src/PrefsUnifiedDlg.cpp:1308
 msgid "Register URL handler"
-msgstr ""
+msgstr "注册URL处理程序"
 
 #: src/PrefsUnifiedDlg.cpp:1305
-#, fuzzy
 msgid "Could not register aMule as the URL handler. The registration store may be read-only."
-msgstr "无法将 aMule 注册为登录时自动启动。自动启动存储可能为只读。"
+msgstr "无法将 aMule 注册为URL处理程序。自动启动存储可能为只读。"
 
 #: src/PrefsUnifiedDlg.cpp:1307
-#, fuzzy
 msgid "Could not remove the URL handler registration."
-msgstr "无法移除登录时自动启动的条目。"
+msgstr "无法移除URL处理程序的注册。"
 
 #: src/PrefsUnifiedDlg.cpp:1392
 msgid ""
@@ -7054,9 +7053,8 @@ msgid "Enable or disable endgame source rotation."
 msgstr "启用/禁用 末端 源轮替。"
 
 #: src/TextClient.cpp:1220
-#, fuzzy
 msgid "The given value must be 1/ON (enable) or 0/OFF (disable).\n"
-msgstr "给出的值的单位必须为 KB/s。\n"
+msgstr "给出的值必须是 1/ON(启用)或 0/OFF(禁用)。\n"
 
 #: src/TextClient.cpp:1225
 msgid "Get and display a preference value."
@@ -8054,9 +8052,8 @@ msgid "Launch aMule automatically when the current user logs in (per-user settin
 msgstr "当前用户登录时自动启动 aMule（每用户设置）。"
 
 #: packaging/windows/installer_strings.c:46
-#, fuzzy
 msgid "Remove aMule application files, Start Menu / desktop shortcuts, autostart Run-key entry, URL scheme registrations, and Add/Remove Programs entry (required)."
-msgstr "删除 aMule 应用程序文件、开始菜单/桌面快捷方式、自启动注册表键、和添加/删除程序条目（必需）。"
+msgstr "删除 aMule 应用程序文件、开始菜单/桌面快捷方式、自启动注册表键、URL scheme 注册和添加/删除程序条目（必需）。"
 
 #: packaging/windows/installer_strings.c:47
 msgid "Permanently delete %APPDATA%\\aMule for the current user (aMule.conf, ED2K server list, Kad nodes, partfiles, IP filters, friends list). Leave unchecked to keep your settings."
