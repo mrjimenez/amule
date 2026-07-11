@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: es\n"
 "POT-Creation-Date: 2026-07-09 14:20+0200\n"
-"PO-Revision-Date: 2026-07-10 19:15+0000\n"
+"PO-Revision-Date: 2026-07-11 08:53+0000\n"
 "Last-Translator: Mad-Soft <mad.soft@gmail.com>\n"
 "Language-Team: Spanish <es_ES@li.org>\n"
 "Language: es\n"
@@ -522,7 +522,7 @@ msgstr "Desconectar de amule/amuled y salir de amulecmd."
 #. type: Plain text
 #: amulecmd.1.in:112
 msgid "Get and display a preference value."
-msgstr "Obtener y mostrar un valor de opciones."
+msgstr "Obtener y mostrar un valor de preferencias."
 
 #. type: Plain text
 #: amulecmd.1.in:114 amulecmd.1.in:148 amulecmd.1.in:197 amulecmd.1.in:207
@@ -868,7 +868,7 @@ msgstr "B<[ -p> I<E<lt>pathE<gt>>, B<--pid-file>=I<E<lt>pathE<gt>> B<]>"
 #. type: Plain text
 #: amuled.1.in:37
 msgid "After fork, create a pid-file in the I<E<lt>pathE<gt>>.  I<E<lt>pathE<gt>> has to contain the filename."
-msgstr "Tras el fork, crear un archivo PID en I<E<lt>pathE<gt>>.  I<E<lt>pathE<gt>> debe contener el nombre del fichero."
+msgstr "Tras el fork, crear un archivo PID en I<E<lt>pathE<gt>>.  I<E<lt>pathE<gt>> debe contener el nombre del archivo."
 
 #. type: Plain text
 #: amuled.1.in:40

@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: aMule\n"
 "Report-Msgid-Bugs-To: https://github.com/amule-org/amule/issues\n"
 "POT-Creation-Date: 2026-07-10 20:18+0200\n"
-"PO-Revision-Date: 2026-07-10 18:59+0000\n"
+"PO-Revision-Date: 2026-07-11 08:39+0000\n"
 "Last-Translator: minterior <minterior@gmail.com>\n"
 "Language-Team: Català\n"
 "Language: ca\n"
@@ -26,9 +26,8 @@ msgstr ""
 "X-Generator: Poedit 3.7\n"
 
 #: src/AboutDialog.cpp:62
-#, fuzzy
 msgid "About aMule"
-msgstr "Mostra l'aMule"
+msgstr "Quant a l'aMule"
 
 #: src/AboutDialog.cpp:74
 msgid "aMule remote control "
@@ -36,7 +35,7 @@ msgstr "Control remot de l'aMule "
 
 #: src/AboutDialog.cpp:79
 msgid "Snapshot:"
-msgstr "Snapshot:"
+msgstr "Versió:"
 
 #: src/AboutDialog.cpp:81
 msgid ""
@@ -45,12 +44,11 @@ msgid ""
 msgstr "Client P2P 'Multiplataforma' basat en eMule \n"
 
 #: src/AboutDialog.cpp:85
-#, fuzzy
 msgid ""
 "Copyright (c) 2003-2026 aMule Team \n"
 "\n"
 msgstr ""
-"Copyright (c) 2003-2026 aMule Team \n"
+"Quant a l'aMule \n"
 "\n"
 
 #: src/AboutDialog.cpp:85
@@ -75,11 +73,11 @@ msgstr "Fòrum:"
 
 #: src/AboutDialog.cpp:102
 msgid "Documentation:"
-msgstr ""
+msgstr "Documentació:"
 
 #: src/AboutDialog.cpp:103
 msgid "Issues:"
-msgstr ""
+msgstr "Problemes:"
 
 #: src/AboutDialog.cpp:112
 #, fuzzy
@@ -3345,7 +3343,7 @@ msgstr "Programari:"
 
 #: src/muuli_wdr.cpp:1051
 msgid "Client version:"
-msgstr "Versió:"
+msgstr "Versió del client:"
 
 #: src/muuli_wdr.cpp:1056 src/ServerWnd.cpp:268
 msgid "IP address:"

@@ -16,7 +16,7 @@ msgstr ""
 "Project-Id-Version: aMule\n"
 "Report-Msgid-Bugs-To: https://github.com/amule-org/amule/issues\n"
 "POT-Creation-Date: 2026-07-10 20:18+0200\n"
-"PO-Revision-Date: 2026-07-10 19:01+0000\n"
+"PO-Revision-Date: 2026-07-11 08:41+0000\n"
 "Last-Translator: Diego Heras <ngosang@hotmail.es>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/amule/amule-application/es/>\n"
 "Language: es\n"
@@ -29,9 +29,8 @@ msgstr ""
 "X-Poedit-SourceCharset: utf-8\n"
 
 #: src/AboutDialog.cpp:62
-#, fuzzy
 msgid "About aMule"
-msgstr "Mostrar aMule"
+msgstr "Acerca de aMule"
 
 #: src/AboutDialog.cpp:74
 msgid "aMule remote control "
@@ -5719,7 +5718,7 @@ msgstr "Confirmar carpetas compartidas"
 
 #: src/PrefsUnifiedDlg.cpp:2419
 msgid "Reloading shared files…"
-msgstr "Recargando los archivos compartidos..."
+msgstr "Recargando los archivos compartidos…"
 
 #: src/PrefsUnifiedDlg.cpp:2419
 msgid "Scanning for subdirectories…"
@@ -7149,7 +7148,7 @@ msgstr "El valor dado ha de ser en kilobytes/s.\n"
 
 #: src/TextClient.cpp:1225
 msgid "Get and display a preference value."
-msgstr "Obtener y mostrar el valor de una preferencia."
+msgstr "Obtener y mostrar un valor de preferencias."
 
 #: src/TextClient.cpp:1231
 msgid "Get IP filtering preferences."
@@ -7216,7 +7215,7 @@ msgstr ""
 "    --min-size <N[KMG]>    tamaño mínimo de archivo; K=1024, M=K*1024, G=M*1024\n"
 "    --max-size <N[KMG]>    tamaño máximo de archivo; mismos sufijos\n"
 "Ejemplo: 'search global linux iso --type Iso --min-size 100M' devolverá\n"
-"resultados de  \"linux iso\" de tipo de archivo Iso de al menos 100 MiB.\n"
+"resultados de \"linux iso\" de tipo de archivo Iso de al menos 100 MiB.\n"
 
 #: src/TextClient.cpp:1284
 msgid "Execute a global search."

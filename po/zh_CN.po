@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: aMule\n"
 "Report-Msgid-Bugs-To: https://github.com/amule-org/amule/issues\n"
 "POT-Creation-Date: 2026-07-10 20:18+0200\n"
-"PO-Revision-Date: 2026-07-10 19:14+0000\n"
+"PO-Revision-Date: 2026-07-11 08:52+0000\n"
 "Last-Translator: Mike Akiba <mike2718@gmail.com>\n"
 "Language-Team: Chinese Simplified <kde-i18n-doc@kde.org>\n"
 "Language: zh_CN\n"
@@ -1692,9 +1692,9 @@ msgid "You are already trying to download the file '%s'"
 msgstr "您已经在下载文件 '%s'"
 
 #: src/DownloadQueue.cpp:406
-#, fuzzy, c-format
+#, c-format
 msgid "You already have the file '%s' (requested as '%s')"
-msgstr "您已下载了文件 '%s'"
+msgstr "你已有文件“%s”（请求的文件名为“%s”）"
 
 #: src/DownloadQueue.cpp:409
 #, c-format
@@ -1891,11 +1891,11 @@ msgstr "%d 个链接失败，共 %d 个（无效或已经在列表中）。"
 
 #: src/ExternalConn.cpp:1936
 msgid "Version check throttled; try again shortly."
-msgstr ""
+msgstr "版本检查受限；请稍后再试。"
 
 #: src/ExternalConn.cpp:1941
 msgid "Version check is not available on this daemon."
-msgstr ""
+msgstr "版本检查在此 daemon 上不可用。"
 
 #: src/ExternalConn.cpp:2065
 msgid "File not found."
@@ -3440,14 +3440,12 @@ msgid "This specifies the language used on controls."
 msgstr "这用来指定控制语言。"
 
 #: src/muuli_wdr.cpp:1216
-#, fuzzy
 msgid "Periodically check for a new version"
-msgstr "单击检查新版本。"
+msgstr "定期检查新版本"
 
 #: src/muuli_wdr.cpp:1217
-#, fuzzy
 msgid "Enabling this will make aMule check for a new version at startup and once a day while running"
-msgstr "启用此选项将让 aMule 启动时检查新版本"
+msgstr "启用此选项将让 aMule 检查新版本（开启时检查及运行时每天检查一次）"
 
 #: src/muuli_wdr.cpp:1224
 msgid "Start aMule automatically when I log in"
@@ -4083,12 +4081,11 @@ msgstr "HTTP 端口："
 
 #: src/muuli_wdr.cpp:1997
 msgid "The interface amuleapi's HTTP server listens on. 127.0.0.1 (default) accepts only local connections; use 0.0.0.0 or a specific IP to expose it to other hosts (set an admin password below)."
-msgstr ""
+msgstr "amuleapi 接口的 HTTP 服务器监听默认地址为 127.0.0.1，该地址仅接受本地连接；使用 0.0.0.0 或特定 IP 地址可将其暴露给其他主机（请在下方设置管理密码）。"
 
 #: src/muuli_wdr.cpp:2000
-#, fuzzy
 msgid "Admin password"
-msgstr "检查密码\n"
+msgstr "管理密码"
 
 #: src/muuli_wdr.cpp:2008
 msgid "Web server parameters"
@@ -5384,9 +5381,8 @@ msgid "- Protocol obfuscation support changed.\n"
 msgstr "- 模糊协议支持已更改。\n"
 
 #: src/PrefsUnifiedDlg.cpp:1025
-#, fuzzy
 msgid "- amuleapi settings changed.\n"
-msgstr "- 语言已更改。\n"
+msgstr "- amuleapi 设置已更改。\n"
 
 #: src/PrefsUnifiedDlg.cpp:1034
 msgid ""
@@ -5485,13 +5481,12 @@ msgid "Could not remove the URL handler registration."
 msgstr "无法移除URL处理程序的注册。"
 
 #: src/PrefsUnifiedDlg.cpp:1421 src/PrefsUnifiedDlg.cpp:1442
-#, fuzzy
 msgid "The web server and aMule API require external connections to be enabled."
-msgstr "密码已设置，启用远程连接。"
+msgstr "启用 web 服务器和 aMule API 需要外部连接。"
 
 #: src/PrefsUnifiedDlg.cpp:1428
 msgid "The aMule web server is deprecated. Consider running the aMule API instead."
-msgstr ""
+msgstr "aMule Web 服务器已弃用。请考虑运行 aMule API。"
 
 #: src/PrefsUnifiedDlg.cpp:1482
 msgid ""

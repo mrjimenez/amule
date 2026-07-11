@@ -20,7 +20,7 @@ msgstr ""
 "Project-Id-Version: aMule 2.3.3\n"
 "Report-Msgid-Bugs-To: https://github.com/amule-org/amule/issues\n"
 "POT-Creation-Date: 2026-07-10 20:18+0200\n"
-"PO-Revision-Date: 2026-07-10 19:06+0000\n"
+"PO-Revision-Date: 2026-07-11 08:45+0000\n"
 "Last-Translator: got3nks <got3nks@users.noreply.github.com>\n"
 "Language-Team: SebastianoPistore.info@protonmail.ch\n"
 "Language: it\n"
@@ -248,14 +248,14 @@ msgid "Failed"
 msgstr "Fallito"
 
 #: src/amule.cpp:300
-#, fuzzy, c-format
+#, c-format
 msgid "Terminating amuleapi instance with pid '%d' ... "
-msgstr "Sto terminando l'istanza di amuleweb con pid `%d' ... "
+msgstr "Sto terminando l'istanza di amuleapi con pid `%d' ... "
 
 #: src/amule.cpp:304
-#, fuzzy, c-format
+#, c-format
 msgid "Killing amuleapi instance with pid '%d' ... "
-msgstr "Sto terminando forzatamente l'istanza di amuleweb con pid `%d' ... "
+msgstr "Sto terminando forzatamente l'istanza di amuleapi con pid `%d' ... "
 
 #: src/amule.cpp:312
 msgid "aMule OnExit: Terminating core."
@@ -355,14 +355,13 @@ msgid "You requested to run web server on startup, but the amuleweb binary canno
 msgstr "Hai scelto di lanciare il web server all'avvio, ma il programma amuleweb non può essere eseguito. Installa il pacchetto contenente aMule web server, oppure compila aMule dai sorgenti con -DBUILD_WEBSERVER=YES e installalo."
 
 #: src/amule.cpp:1117
-#, fuzzy, c-format
+#, c-format
 msgid "amuleapi running on pid %d"
-msgstr "web server in esecuzione su pid %d"
+msgstr "amuleapi in esecuzione su pid %d"
 
 #: src/amule.cpp:1123
-#, fuzzy
 msgid "You requested to run amuleapi on startup, but the amuleapi binary cannot be run. Please install the package containing aMule's REST API server, or build aMule from source with -DBUILD_AMULEAPI=YES and install it."
-msgstr "Hai scelto di lanciare il web server all'avvio, ma il programma amuleweb non può essere eseguito. Installa il pacchetto contenente aMule web server, oppure compila aMule dai sorgenti con -DBUILD_WEBSERVER=YES e installalo."
+msgstr "Hai scelto di lanciare amuleapi all'avvio, ma il programma amuleapi non può essere eseguito. Installa il pacchetto contenente amuleapi, oppure compila aMule dai sorgenti con -DBUILD_AMULEAPI=YES e installalo."
 
 #: src/amule.cpp:1210
 #, c-format
@@ -1701,9 +1700,9 @@ msgid "You are already trying to download the file '%s'"
 msgstr "Stai già cercando di scaricare il file '%s'"
 
 #: src/DownloadQueue.cpp:406
-#, fuzzy, c-format
+#, c-format
 msgid "You already have the file '%s' (requested as '%s')"
-msgstr "Hai già il file '%s'"
+msgstr "Hai già il file '%s' (richiesto come '%s')"
 
 #: src/DownloadQueue.cpp:409
 #, c-format
@@ -1900,11 +1899,11 @@ msgstr "%d di %d collegamenti non riusciti (non validi o già in elenco)."
 
 #: src/ExternalConn.cpp:1936
 msgid "Version check throttled; try again shortly."
-msgstr ""
+msgstr "Controllo versione soggetto a limite di frequenza; riprova a breve."
 
 #: src/ExternalConn.cpp:1941
 msgid "Version check is not available on this daemon."
-msgstr ""
+msgstr "Il controllo versione non è disponibile su questo demone."
 
 #: src/ExternalConn.cpp:2065
 msgid "File not found."
@@ -2888,14 +2887,12 @@ msgid "Total UL: %s"
 msgstr "UL totale: %s"
 
 #: src/muuli_wdr.cpp:103
-#, fuzzy
 msgid "Paste eD2k or magnet links here"
-msgstr "Aggiungi un link eD2k o un magnet link al core."
+msgstr "Incolla qui un link eD2k o un magnet link."
 
 #: src/muuli_wdr.cpp:105
-#, fuzzy
 msgid "Add links"
-msgstr "Inserisci tra gli amici"
+msgstr "Aggiungi collegamenti"
 
 #: src/muuli_wdr.cpp:106
 msgid "Click here to add the eD2k link in the text control to your download queue."
@@ -3453,14 +3450,12 @@ msgid "This specifies the language used on controls."
 msgstr "Scelta della lingua utilizzata."
 
 #: src/muuli_wdr.cpp:1216
-#, fuzzy
 msgid "Periodically check for a new version"
-msgstr "Fai clic per verificare la disponibilità di una versione più recente."
+msgstr "Controlla periodicamente la disponibilità di una nuova versione"
 
 #: src/muuli_wdr.cpp:1217
-#, fuzzy
 msgid "Enabling this will make aMule check for a new version at startup and once a day while running"
-msgstr "Abilitare questa opzione farà sì che aMule all'avvio verifichi la disponibilità di nuove versioni"
+msgstr "Abilitare questa opzione farà sì che aMule verifichi la disponibilità di nuove versioni all'avvio e una volta al giorno durante l'esecuzione"
 
 #: src/muuli_wdr.cpp:1224
 msgid "Start aMule automatically when I log in"
@@ -4083,36 +4078,32 @@ msgid "Password"
 msgstr "Password"
 
 #: src/muuli_wdr.cpp:1975
-#, fuzzy
 msgid "aMule API server parameters"
-msgstr "Parametri del server web"
+msgstr "Parametri del server API di aMule"
 
 #: src/muuli_wdr.cpp:1978
 msgid "Run amuleapi (REST API) on startup"
-msgstr ""
+msgstr "Avvia amuleapi (REST API) all'avvio"
 
 #: src/muuli_wdr.cpp:1983
-#, fuzzy
 msgid "HTTP port:"
-msgstr "Porta TCP:"
+msgstr "Porta HTTP:"
 
 #: src/muuli_wdr.cpp:1997
 msgid "The interface amuleapi's HTTP server listens on. 127.0.0.1 (default) accepts only local connections; use 0.0.0.0 or a specific IP to expose it to other hosts (set an admin password below)."
-msgstr ""
+msgstr "L'interfaccia su cui è in ascolto il server HTTP di amuleapi. 127.0.0.1 (predefinito) accetta solo connessioni locali; usa 0.0.0.0 o un IP specifico per esporlo ad altri host (imposta una password di amministrazione qui sotto)."
 
 #: src/muuli_wdr.cpp:2000
-#, fuzzy
 msgid "Admin password"
-msgstr "Verifica password\n"
+msgstr "Password amministrazione"
 
 #: src/muuli_wdr.cpp:2008
 msgid "Web server parameters"
 msgstr "Parametri del server web"
 
 #: src/muuli_wdr.cpp:2011
-#, fuzzy
 msgid "Run webserver on startup (deprecated)"
-msgstr "Lancia il webserver all'avvio"
+msgstr "Lancia il webserver all'avvio (deprecato)"
 
 #: src/muuli_wdr.cpp:2017
 msgid "Web template"
@@ -5399,9 +5390,8 @@ msgid "- Protocol obfuscation support changed.\n"
 msgstr "- Modificato il supporto all'offuscamento del protocollo.\n"
 
 #: src/PrefsUnifiedDlg.cpp:1025
-#, fuzzy
 msgid "- amuleapi settings changed.\n"
-msgstr "- Modifica della lingua.\n"
+msgstr "- configurazione di amuleapi modificata.\n"
 
 #: src/PrefsUnifiedDlg.cpp:1034
 msgid ""
@@ -5500,13 +5490,12 @@ msgid "Could not remove the URL handler registration."
 msgstr "Impossibile rimuovere la registrazione del gestore URL."
 
 #: src/PrefsUnifiedDlg.cpp:1421 src/PrefsUnifiedDlg.cpp:1442
-#, fuzzy
 msgid "The web server and aMule API require external connections to be enabled."
-msgstr "Password impostata, connessioni esterne abilitate."
+msgstr "Il server web e aMule API richiedono che le connessioni esterne siano abilitate."
 
 #: src/PrefsUnifiedDlg.cpp:1428
 msgid "The aMule web server is deprecated. Consider running the aMule API instead."
-msgstr ""
+msgstr "Il server web di aMule è deprecato. Valuta in alternativa l'uso di aMule API."
 
 #: src/PrefsUnifiedDlg.cpp:1482
 msgid ""

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: aMule SVN\n"
 "POT-Creation-Date: 2026-07-09 14:20+0200\n"
-"PO-Revision-Date: 2026-07-10 19:15+0000\n"
+"PO-Revision-Date: 2026-07-11 08:53+0000\n"
 "Last-Translator: Sebastiano Pistore <SebastianoPistore.info@protonmail.ch>\n"
 "Language-Team: none\n"
 "Language: it\n"
@@ -1152,7 +1152,7 @@ msgstr "[B<--amule-config-file>=I<E<lt>percorsoE<gt>>]"
 #. type: Plain text
 #: amuleweb.1.in:45
 msgid "B<DEPRECATED:> amuleweb is deprecated and may be removed in aMule 3.2 or later.  It is not being removed yet; consider migrating to amuleapi, the REST/SSE API."
-msgstr ""
+msgstr "B<DEPRECATED:> amuleweb è deprecato e potrebbe essere rimosso in aMule 3.2 o versioni successive.  Per ora non viene rimosso; valuta la migrazione ad amuleapi, l'API REST/SSE."
 
 # type: Plain text
 #. type: Plain text

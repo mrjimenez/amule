@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: aMule GIT\n"
 "Report-Msgid-Bugs-To: https://github.com/amule-org/amule/issues\n"
 "POT-Creation-Date: 2026-07-10 20:18+0200\n"
-"PO-Revision-Date: 2026-07-10 19:16+0000\n"
+"PO-Revision-Date: 2026-07-11 08:54+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: none\n"
 "Language: lv\n"
@@ -77,7 +77,7 @@ msgstr "Noklikšķiniet, lai pārbaudītu, vai nav pieejama jaunāka versija."
 
 #: src/AboutDialog.cpp:113
 msgid "Check for updates"
-msgstr ""
+msgstr "Pārbaudīt atjauninājumus"
 
 #: src/AboutDialog.cpp:162
 msgid "Checking for updates..."
@@ -230,9 +230,9 @@ msgid "Terminating amuleapi instance with pid '%d' ... "
 msgstr "Pārtrauc amuleweb procesu ar pid '%d' … "
 
 #: src/amule.cpp:304
-#, fuzzy, c-format
+#, c-format
 msgid "Killing amuleapi instance with pid '%d' ... "
-msgstr "Iznīcina amuleweb procesu ar pid '%d' … "
+msgstr "Iznīcina amuleapi procesu ar pid '%d' … "
 
 #: src/amule.cpp:312
 msgid "aMule OnExit: Terminating core."
@@ -370,19 +370,19 @@ msgstr ""
 #: src/amule.cpp:1517
 #, c-format
 msgid "This is the first time you run aMule %s"
-msgstr ""
+msgstr "Šī ir pirmā reize, kad aMule %s palaista"
 
 #: src/amule.cpp:1520
 msgid "This version is a testing version, updated daily, and\n"
-msgstr ""
+msgstr "Šī ir ikdienas (atjaunina katru dienu) testa versija, tāpēc\n"
 
 #: src/amule.cpp:1521
 msgid "we give no warranty it won't break anything, burn your house,\n"
-msgstr ""
+msgstr "mēs negarantējam, ka tā neko nesabojās, nenodedzinās jūsu māju\n"
 
 #: src/amule.cpp:1522
 msgid "or kill your dog. But it *should* be safe to use anyway.\n"
-msgstr ""
+msgstr "vai nenogalinās jūsu suni. Bet tā jebkurā gadījumā *vajadzētu* būt droša lietošanā.\n"
 
 #: src/amule.cpp:1527
 msgid "More information, support and new releases can found at our homepage,\n"
@@ -394,7 +394,7 @@ msgstr "https://amule-org.github.io vai mūsu IRC kanālā #aMule vietnē irc.li
 
 #: src/amule.cpp:1530
 msgid "Feel free to report any bugs to https://github.com/amule-org/amule/issues"
-msgstr ""
+msgstr "Nekautrējieties ziņot par problēmām https://github.com/amule-org/amule/issues vietnē"
 
 #: src/amule.cpp:1542
 msgid ""
@@ -3357,7 +3357,7 @@ msgstr "Iesauka"
 
 #: src/muuli_wdr.cpp:1200
 msgid "https://amule-org.github.io - the multi-platform Mule"
-msgstr ""
+msgstr "https://amule-org.github.io - vairāku operētājsistēmu Mule"
 
 #: src/muuli_wdr.cpp:1201
 msgid "This is the name that other users will see when connecting to you."
@@ -3377,9 +3377,8 @@ msgid "This specifies the language used on controls."
 msgstr ""
 
 #: src/muuli_wdr.cpp:1216
-#, fuzzy
 msgid "Periodically check for a new version"
-msgstr "Noklikšķiniet, lai pārbaudītu, vai nav pieejama jaunāka versija."
+msgstr "Regulāri pārbaudīt atjauninājumus"
 
 #: src/muuli_wdr.cpp:1217
 #, fuzzy
@@ -3531,7 +3530,7 @@ msgstr ""
 
 #: src/muuli_wdr.cpp:1379
 msgid "Enable UPnP for router port forwarding"
-msgstr ""
+msgstr "Iespējot UPnP maršrutētāja portu pāradresāciju"
 
 #: src/muuli_wdr.cpp:1383
 msgid "UPnP TCP Port (Optional):"
@@ -3559,7 +3558,7 @@ msgstr ""
 
 #: src/muuli_wdr.cpp:1415
 msgid "Max simultaneous connections:"
-msgstr ""
+msgstr "Maksimālais vienlaicīgo savienojumu skaits:"
 
 #: src/muuli_wdr.cpp:1425
 msgid "Kademlia"
@@ -3575,11 +3574,11 @@ msgstr "Kad palaiž, automātiski pieslēgties"
 
 #: src/muuli_wdr.cpp:1438
 msgid "Reconnect on loss"
-msgstr ""
+msgstr "Atkārtoti pieslēgties, kad zaudēts savienojums"
 
 #: src/muuli_wdr.cpp:1460
 msgid "Remove dead server after"
-msgstr ""
+msgstr "Noņemt mirušo serveri pēc"
 
 #: src/muuli_wdr.cpp:1464
 msgid "retries"
@@ -3619,7 +3618,7 @@ msgstr ""
 
 #: src/muuli_wdr.cpp:1496
 msgid "Set manually added servers to High Priority"
-msgstr ""
+msgstr "Iestatīt pašrocīgi pievienotos serverus kā augstas prioritātes"
 
 #: src/muuli_wdr.cpp:1514
 msgid "Intelligent Corruption Handling (I.C.H.)"
@@ -3699,7 +3698,7 @@ msgstr ""
 
 #: src/muuli_wdr.cpp:1585
 msgid "Extract length / bitrate / codec from shared audio and video files"
-msgstr ""
+msgstr "Iegūt garuma / bitu pārraides ātruma / kodeka infomāciju no kopīgotajām audio un video datnēm"
 
 #: src/muuli_wdr.cpp:1587
 msgid "When enabled, aMule runs ffprobe on each shared media file to fill in the Length / Bitrate / Codec columns other clients see when they find the file in a search. Requires ffmpeg (the ffprobe binary) to be installed."
@@ -3757,7 +3756,7 @@ msgstr ""
 
 #: src/muuli_wdr.cpp:1664
 msgid "Automatically rescan shared folders for changes"
-msgstr ""
+msgstr "Automātiski uzraudzīt kopīgoto mapju izmaiņas"
 
 #: src/muuli_wdr.cpp:1670
 msgid "Follow symbolic links in shared folders"
@@ -3877,7 +3876,7 @@ msgstr ""
 
 #: src/muuli_wdr.cpp:1812
 msgid "!!! WARNING !!!"
-msgstr ""
+msgstr "!!! BRĪDINĀJUMS !!!"
 
 #: src/muuli_wdr.cpp:1827
 msgid "Max new connections / 5 secs"
@@ -3897,7 +3896,7 @@ msgstr ""
 
 #: src/muuli_wdr.cpp:1837
 msgid "File Buffer Size: 240000 bytes"
-msgstr ""
+msgstr "Datnes bufera izmērs: 240000 baiti"
 
 #: src/muuli_wdr.cpp:1841
 msgid "Upload Queue Size: 5000 clients"
@@ -7892,7 +7891,7 @@ msgstr ""
 
 #: src/webserver/src/WebServer.cpp:2015
 msgid "Checking password\n"
-msgstr ""
+msgstr "Pārbauda paroli\n"
 
 #: src/webserver/src/WebServer.cpp:2020
 msgid "Password hash invalid\n"
