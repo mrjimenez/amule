@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: aMule GIT\n"
 "Report-Msgid-Bugs-To: https://github.com/amule-org/amule/issues\n"
 "POT-Creation-Date: 2026-07-11 21:38+0200\n"
-"PO-Revision-Date: 2026-07-11 08:54+0000\n"
+"PO-Revision-Date: 2026-07-12 11:59+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: none\n"
 "Language: lv\n"
@@ -5597,8 +5597,9 @@ msgstr ""
 #, c-format
 msgid "File Buffer Size: %d byte"
 msgid_plural "File Buffer Size: %d bytes"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Datnes bufera izmērs: %d baiti"
+msgstr[1] "Datnes bufera izmērs: %d baits"
+msgstr[2] "Datnes bufera izmērs: %d baiti"
 
 #: src/PrefsUnifiedDlg.cpp:2075
 #, c-format
@@ -5641,7 +5642,7 @@ msgstr ""
 
 #: src/PrefsUnifiedDlg.cpp:2207
 msgid "GUI command:"
-msgstr ""
+msgstr "GUI komanda:"
 
 #: src/PrefsUnifiedDlg.cpp:2223
 msgid "The following variables will be replaced:"
@@ -5814,19 +5815,20 @@ msgstr ""
 #: src/ServerConnect.cpp:347
 #, c-format
 msgid "%s (%s:%i) appears to be dead."
-msgstr ""
+msgstr "Šķiet, ka %s (%s:%i) miris."
 
 #: src/ServerConnect.cpp:358
 #, c-format
 msgid "%s (%s:%i) appears to be full."
-msgstr ""
+msgstr "Šķiet, ka %s (%s:%i) pilns."
 
 #: src/ServerConnect.cpp:375
 #, c-format
 msgid "Automatic connection to server will retry in %d second"
 msgid_plural "Automatic connection to server will retry in %d seconds"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Automātiskā pieslēgšanās serverim tiks veikta pēc %d sekundēm"
+msgstr[1] "Automātiskā pieslēgšanās serverim tiks veikta pēc %d sekundes"
+msgstr[2] "Automātiskā pieslēgšanās serverim tiks veikta pēc %d sekundēm"
 
 #: src/ServerConnect.cpp:405
 #, c-format
@@ -5873,19 +5875,21 @@ msgstr ""
 #, c-format
 msgid "%i server in server.met found"
 msgid_plural "%i servers in server.met found"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Atrasti %i serveri server.met datnē"
+msgstr[1] "Atrasts %i serveris server.met datnē"
+msgstr[2] "Atrasti %i serveri server.met datnē"
 
 #: src/ServerList.cpp:186
 #, c-format
 msgid "%d server added"
 msgid_plural "%d servers added"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Pievienoti %d serveri"
+msgstr[1] "Pievienots %d serveris"
+msgstr[2] "Pievienoti %d serveri"
 
 #: src/ServerList.cpp:190
 msgid "Error: the file 'server.met' is corrupted: "
-msgstr ""
+msgstr "Kļūda: 'server.met' datne ir bojāta: "
 
 #: src/ServerList.cpp:194
 msgid "IO error while reading 'server.met': "
@@ -5926,7 +5930,7 @@ msgstr ""
 
 #: src/ServerList.cpp:844
 msgid "Invalid URL"
-msgstr ""
+msgstr "Nederīga URL adrese"
 
 #: src/ServerList.cpp:871
 #, c-format
