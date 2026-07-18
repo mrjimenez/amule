@@ -131,6 +131,23 @@ public:
 	// local ID to the daemon-allocated one once the START reply arrives.
 	void RekeySearch(wxUIntPtr oldID, wxUIntPtr newID);
 
+	// "View Files" (browse): find-or-create the tab for a peer's shared-file
+	// listing, keyed by the peer's ECID so a re-browse refreshes the same tab.
+	// searchID is the result-routing ID (daemon-allocated over EC, or the local
+	// client pointer in the monolithic client); if the tab already exists its
+	// routing ID is rekeyed to searchID. Shared by monolithic and amuleGUI.
+	void EnsureBrowseTab(uint32 peerEcid, const wxString &userName, wxUIntPtr searchID);
+
+	// Remote GUI: allocate a fresh optimistic placeholder tab ID in the reserved
+	// high sub-range (bit 30, bottom half) the daemon's allocators never produce.
+	wxUIntPtr AllocateOptimisticId();
+
+	// "View Files": update a browse tab's lifecycle marker (EBrowseStatus),
+	// keyed by the tab's result-routing search ID (the only key both sides agree
+	// on across EC — the daemon's client ECID differs from the GUI's). No-op if
+	// the tab isn't an open browse tab.
+	void SetBrowseStatus(wxUIntPtr searchID, uint32 status);
+
 	// Search ID of the currently visible tab (0 if none). The single bottom
 	// progress bar tracks this tab.
 	wxUIntPtr GetVisibleSearchId();
@@ -184,6 +201,16 @@ private:
 	// Set the bottom progress bar from a per-search status sentinel: a finished
 	// search (0xffff/0xfffe) resets it, otherwise it shows the running percent.
 	void ApplyProgressToBar(uint32 status);
+
+	// Find an open "View Files" tab by the browsed peer's ECID (NULL if none).
+	CSearchListCtrl *GetBrowseList(uint32 ecid);
+
+	// Monotonic counter behind search/browse tab IDs. On the remote GUI both a
+	// new search and a browse draw their optimistic placeholder from it via
+	// AllocateOptimisticId, so their placeholders never collide before the daemon
+	// rekeys them; the monolithic build reuses the same counter directly for its
+	// (non-remapped) search IDs.
+	static uint32 s_optimisticIdCounter;
 
 	uint64 m_last_search_time;
 

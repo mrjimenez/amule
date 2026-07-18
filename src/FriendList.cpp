@@ -200,17 +200,26 @@ void CFriendList::RemoveAllFriendSlots()
 	}
 }
 
-void CFriendList::RequestSharedFileList(CFriend *cur_friend)
+void CFriendList::RequestSharedFileList(CFriend *cur_friend, uint32 browseSearchId)
 {
 	if (cur_friend) {
 		CUpDownClient *client = cur_friend->GetLinkedClient().GetClient();
 		if (!client) {
 			client = new CUpDownClient(
 				cur_friend->GetPort(), cur_friend->GetIP(), 0, 0, 0, true, true);
+			// The client is built from the stored IP+port before it has
+			// connected, so seed its IP explicitly — the ctor only sets the
+			// connect IP, leaving GetIP() at 0. Mirrors StartChatSession;
+			// without it LinkClient would copy that 0 back onto the friend's
+			// stored IP, so a restart would show 0.0.0.0.
+			client->SetIP(cur_friend->GetIP());
 			client->SetUserName(cur_friend->GetName());
 			theApp->clientlist->AddClient(client);
 			cur_friend->LinkClient(CCLIENTREF(client, "CFriendList::RequestSharedFileList"));
 		}
+		// Pin the EC-allocated browse ID (0 for a monolithic local browse) before
+		// firing the request so ProcessSharedFileList files the listing under it.
+		client->SetBrowseSearchId(browseSearchId);
 		client->RequestSharedFileList();
 	}
 }
