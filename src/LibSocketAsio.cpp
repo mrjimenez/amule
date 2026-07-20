@@ -537,10 +537,11 @@ public:
 			if (m_connectTimeoutMs > 0) {
 				// Bounded synchronous connect: async_connect raced
 				// against a steady_timer, both driven here on the
-				// io_service. This path is only reached by the
-				// synchronous EC clients (amulecmd), which don't start
-				// the CAsioService thread pool, so the io_service is
-				// otherwise idle and safe to run locally. Portable
+				// io_service. A synchronous EC connection may use the
+				// global s_io_service before the CAsioService thread pool
+				// is started. If the synchronous operation leaves the
+				// io_context stopped, it must be restarted before run()
+				// is called. Portable
 				// across every platform through asio, with no per-OS
 				// socket-timeout handling — a wrong or unreachable host
 				// now fails in m_connectTimeoutMs instead of hanging on
@@ -2011,6 +2012,11 @@ private:
  */
 CAsioService::CAsioService()
 {
+	// Synchronous users such as amuleweb connect to the EC server before
+	// starting their long-lived Asio worker pool. A completed run()/run_one()
+	// leaves the process-global io_context stopped, in which state new work is
+	// ignored until restart() is called.
+	s_io_service.restart();
 	m_threads = new CAsioServiceThread[m_numberOfThreads];
 }
 
