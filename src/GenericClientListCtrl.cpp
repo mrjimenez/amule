@@ -97,7 +97,7 @@ private:
 
 #define m_ImageList theApp->amuledlg->m_imagelist
 
-wxBEGIN_EVENT_TABLE(CGenericClientListCtrl, CMuleListCtrl)
+wxBEGIN_EVENT_TABLE(CGenericClientListCtrl, CMuleVirtualListCtrl)
 	EVT_LIST_ITEM_ACTIVATED(wxID_ANY, CGenericClientListCtrl::OnItemActivated)
 	EVT_LIST_ITEM_RIGHT_CLICK(wxID_ANY, CGenericClientListCtrl::OnMouseRightClick)
 	EVT_LIST_ITEM_MIDDLE_CLICK(wxID_ANY, CGenericClientListCtrl::OnMouseMiddleClick)
@@ -123,7 +123,8 @@ CGenericClientListCtrl::CGenericClientListCtrl(const wxString &tablename,
 	long style,
 	const wxValidator &validator,
 	const wxString &name)
-: CMuleListCtrl(parent, winid, pos, size, style | wxLC_OWNERDRAW | wxLC_VRULES | wxLC_HRULES, validator, name)
+: CMuleVirtualListCtrl(
+	  parent, winid, pos, size, style | wxLC_OWNERDRAW | wxLC_VRULES | wxLC_HRULES, validator, name)
 , m_columndata(0, NULL)
 {
 	// Setting the sorter function must be done in the derived class, to use the translation function
@@ -201,6 +202,27 @@ wxString CGenericClientListCtrl::TranslateCIDToName(GenericColumnEnum cid)
 	return name;
 }
 
+bool CGenericClientListCtrl::IsLiveSortColumn() const
+{
+	const int col = static_cast<int>(GetSortColumn());
+	if (col < 0 || col >= m_columndata.n_columns) {
+		return false;
+	}
+	switch (m_columndata.columns[col].cid) {
+	case ColumnUserDownloaded:
+	case ColumnUserUploaded:
+	case ColumnUserSpeedDown:
+	case ColumnUserSpeedUp:
+	case ColumnUserProgress:
+	case ColumnUserAvailable:
+	case ColumnUserQueueRankLocal:
+	case ColumnUserQueueRankRemote:
+		return true;
+	default:
+		return false;
+	}
+}
+
 void CGenericClientListCtrl::InitColumnData()
 {
 	if (!m_columndata.n_columns) {
@@ -232,9 +254,10 @@ void CGenericClientListCtrl::RawAddSource(CKnownFile *owner, CClientRef source, 
 
 	m_ListItems.insert(ListItemsPair(source.ECID(), newitem));
 
-	long item = InsertItem(GetItemCount(), "");
-	SetItemPtrData(item, reinterpret_cast<wxUIntPtr>(newitem));
-	SetItemBackgroundColour(item, GetBackgroundColour());
+	// Virtual list: append at the end (unsorted); ShowSources() sorts once at
+	// the end of a bulk add, a single runtime add just shows at the bottom —
+	// same as the old InsertItem(GetItemCount()) behaviour.
+	AppendItemDataNow(reinterpret_cast<wxUIntPtr>(newitem));
 }
 
 void CGenericClientListCtrl::AddSource(CKnownFile *owner, const CClientRef &source, SourceItemType type)
@@ -283,11 +306,7 @@ void CGenericClientListCtrl::RawRemoveSource(ListItems::iterator &it)
 {
 	ClientCtrlItem_Struct *item = it->second;
 
-	long index = FindItem(-1, reinterpret_cast<wxUIntPtr>(item));
-
-	if (index > -1) {
-		DeleteItem(index);
-	}
+	RemoveItemData(reinterpret_cast<wxUIntPtr>(item));
 
 	delete item;
 
@@ -325,19 +344,8 @@ void CGenericClientListCtrl::UpdateItem(uint32 toupdate, SourceItemType type)
 	ListIteratorPair rangeIt = m_ListItems.equal_range(toupdate);
 
 	if (rangeIt.first != rangeIt.second) {
-		// Visible lines, default to all because not all platforms
-		// support the GetVisibleLines function
-		long first = 0, last = GetItemCount();
-
-#ifndef __WINDOWS__
-		// Get visible lines if we need them
-		GetVisibleLines(&first, &last);
-#endif
-
 		for (ListItems::iterator it = rangeIt.first; it != rangeIt.second; ++it) {
 			ClientCtrlItem_Struct *item = it->second;
-
-			long index = FindItem(-1, reinterpret_cast<wxUIntPtr>(item));
 
 			if ((type == A4AF_SOURCE) && item->GetSource().GetRequestFile() &&
 				std::binary_search(m_knownfiles.begin(),
@@ -351,10 +359,9 @@ void CGenericClientListCtrl::UpdateItem(uint32 toupdate, SourceItemType type)
 
 			item->dwUpdated = 0;
 
-			// Only update visible lines
-			if (index >= first && index <= last) {
-				RefreshItem(index);
-			}
+			// Virtual list: repaints only the row if visible; base also
+			// schedules a live re-sort when sorted by a live column.
+			RefreshItemData(reinterpret_cast<wxUIntPtr>(item));
 		}
 	}
 }
@@ -497,12 +504,9 @@ void CGenericClientListCtrl::RemoveKnownFile(CKnownFile *file)
 	for (ListItems::iterator it = m_ListItems.begin(); it != m_ListItems.end(); /* manual ++ */) {
 		ClientCtrlItem_Struct *item = it->second;
 		if (item && item->GetOwner() == file) {
-			// Drop the wx row first while the multimap entry is
+			// Drop the model row first while the multimap entry is
 			// still valid, then erase the multimap entry.
-			long row = FindItem(-1, reinterpret_cast<wxUIntPtr>(item));
-			if (row != -1) {
-				DeleteItem(row);
-			}
+			RemoveItemData(reinterpret_cast<wxUIntPtr>(item));
 			delete item;
 			m_ListItems.erase(it++);
 		} else {
@@ -524,8 +528,7 @@ static ItemList GetSelectedItems(CGenericClientListCtrl *list)
 	long index = list->GetNextItem(-1, wxLIST_NEXT_ALL, wxLIST_STATE_SELECTED);
 
 	while (index > -1) {
-		ClientCtrlItem_Struct *item =
-			reinterpret_cast<ClientCtrlItem_Struct *>(list->GetItemData(index));
+		ClientCtrlItem_Struct *item = reinterpret_cast<ClientCtrlItem_Struct *>(list->ItemAt(index));
 
 		results.push_back(item);
 
@@ -630,7 +633,7 @@ void CGenericClientListCtrl::OnViewClientInfo(wxCommandEvent &WXUNUSED(event))
 void CGenericClientListCtrl::OnItemActivated(wxListEvent &evt)
 {
 	CClientDetailDialog(
-		this, reinterpret_cast<ClientCtrlItem_Struct *>(GetItemData(evt.GetIndex()))->GetSource())
+		this, reinterpret_cast<ClientCtrlItem_Struct *>(ItemAt(evt.GetIndex()))->GetSource())
 		.ShowModal();
 }
 
@@ -644,7 +647,7 @@ void CGenericClientListCtrl::OnMouseRightClick(wxListEvent &evt)
 	delete m_menu;
 	m_menu = NULL;
 
-	ClientCtrlItem_Struct *item = reinterpret_cast<ClientCtrlItem_Struct *>(GetItemData(index));
+	ClientCtrlItem_Struct *item = reinterpret_cast<ClientCtrlItem_Struct *>(ItemAt(index));
 	CClientRef &client = item->GetSource();
 
 	m_menu = new wxMenu("Clients");
@@ -685,7 +688,7 @@ void CGenericClientListCtrl::OnMouseMiddleClick(wxListEvent &evt)
 		return;
 	}
 
-	CClientDetailDialog(this, reinterpret_cast<ClientCtrlItem_Struct *>(GetItemData(index))->GetSource())
+	CClientDetailDialog(this, reinterpret_cast<ClientCtrlItem_Struct *>(ItemAt(index))->GetSource())
 		.ShowModal();
 }
 
@@ -706,7 +709,7 @@ void CGenericClientListCtrl::OnDrawItem(
 		return;
 	}
 
-	ClientCtrlItem_Struct *content = reinterpret_cast<ClientCtrlItem_Struct *>(GetItemData(item));
+	ClientCtrlItem_Struct *content = reinterpret_cast<ClientCtrlItem_Struct *>(ItemAt(item));
 
 	// Define text-color and background
 	// and the border of the drawn area
